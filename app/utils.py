@@ -47,14 +47,12 @@ class ProductCacheManager:
         try:
             # Load current products from storage
             current_data = self.storage.get()
-            print(current_data)
 
             names = {product["product_name"]: product for product in current_data}
 
             count = 0
             
             for product in self.products:
-                print(self.redis_client)
                 cached_price = self.redis_client.get(product.product_name)
 
                 # Check if price has not changed
