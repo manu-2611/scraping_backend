@@ -1,6 +1,6 @@
 # Scraping Backend
 
-The Scraping Backend is a robust Python application designed for web scraping. It leverages modern tools and frameworks such as FastAPI for building APIs, Redis for caching, and Pydantic for data validation.
+The Scraping Backend is a robust Python application designed for web scraping. It uses the modern tools and frameworks such as FastAPI for building APIs, Redis for caching, and Pydantic for data validation.
 
 ## Table of Contents
 
@@ -68,8 +68,6 @@ DB_NAME="DB_NAME"
 USERNAME="USERNAME"
 PASSWORD="PASSWORD"
 ```
-
-Here’s a suggested **Usage** section for your README.md, tailored for your project that scrapes data from a website and stores it in Redis and a JSON file:
 
 ## Usage
 
@@ -144,17 +142,16 @@ Feel free to adjust any specifics to better fit your project's implementation!
 
 The following JSON object can be used to configure the scraping settings.
 
-````json
+```json
 {
-  "limit": 10,         // Optional: Limit the number of pages to scrape. Default is null (no limit).
+  "limit": 10, // Optional: Limit the number of pages to scrape. Default is null (no limit).
   "proxy": "http://example.com:8080" // Optional: Proxy string to use for scraping. Default is null (no proxy).
 }
-
+```
 
 #### Responses
 
 - **200 OK**
-
   - **Description:** Successful scraping. Returns the number of products scraped and skipped.
   - **Response Example:**
     ```json
@@ -175,7 +172,6 @@ The following JSON object can be used to configure the scraping settings.
       ]
     }
     ```
-
 - **403 Forbidden**
 
   - **Description:** Invalid token provided in the request.
@@ -200,8 +196,6 @@ The following JSON object can be used to configure the scraping settings.
       ]
     }
     ```
-
-````
 
 ## Contributing
 
