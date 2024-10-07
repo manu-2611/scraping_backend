@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from settings import STATIC_TOKEN, FILE_PATH, STORAGE_TYPE
 from models.settings import Settings
+from models.product import ProductResponse
 from tasks.notification import NotificationStrategy
 from scraping import Scrapping
 from storage.json import JsonStorage
@@ -19,7 +20,7 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(HTTPB
         )
 
 # Protected POST endpoint
-@app.post("/products/")
+@app.post("/products/", response_model=ProductResponse)
 async def product(settings: Settings, credentials: HTTPAuthorizationCredentials = Depends(verify_token)):  
     if STORAGE_TYPE == "JSON":
         storage = JsonStorage(FILE_PATH)

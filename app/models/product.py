@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field, HttpUrl
+from typing import List
 
 class Product(BaseModel):
     """Model representing a product with title, price, and image URL."""
@@ -15,3 +16,8 @@ class Product(BaseModel):
                 "path_to_image": "https://example.com/image.jpg"
             }
         }
+
+class ProductResponse(BaseModel):
+    count: int
+    product_skipped: int
+    products: List[Product]
