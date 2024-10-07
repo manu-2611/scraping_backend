@@ -203,8 +203,9 @@ We welcome contributions! To get started:
 
 1. **Fork the Repo** and clone it to your machine.
 2. **Create a Branch**: `git checkout -b feature/your-feature-name`.
-3. **Make Changes** and commit: `git commit -m "Your message"`.
-4. **Push** your branch: `git push origin feature/your-feature-name`.
-5. **Open a Pull Request**.
+3. **Install Hooks for pre-commit**:`pre-commit install`.
+4. **Make Changes** and commit: `git commit -m "Your message"` pre commit will fix the code structure and then commit again.
+5. **Push** your branch: `git push origin feature/your-feature-name`.
+6. **Open a Pull Request**.
 
 For issues or feature requests, please open an issue. Thank you for contributing!
