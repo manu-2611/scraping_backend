@@ -1,12 +1,12 @@
-from fastapi import FastAPI, Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from settings import STATIC_TOKEN, FILE_PATH, STORAGE_TYPE
-from models.settings import Settings
+from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from models.product import ProductResponse
-from tasks.notification import NotificationStrategy
+from models.settings import Settings
 from scraping import Scrapping
+from settings import FILE_PATH, STATIC_TOKEN, STORAGE_TYPE
 from storage.json import JsonStorage
 from storage.sql import SQLStorage
+from tasks.notification import NotificationStrategy
 
 app = FastAPI()
 
@@ -21,7 +21,7 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(HTTPB
 
 # Protected POST endpoint
 @app.post("/products/", response_model=ProductResponse)
-async def product(settings: Settings, credentials: HTTPAuthorizationCredentials = Depends(verify_token)):  
+async def product(settings: Settings, credentials: HTTPAuthorizationCredentials = Depends(verify_token)):
     if STORAGE_TYPE == "JSON":
         storage = JsonStorage(FILE_PATH)
     if STORAGE_TYPE =="SQL":
@@ -43,4 +43,3 @@ async def product(settings: Settings, credentials: HTTPAuthorizationCredentials 
 
         return response
     return {"error": "Something went wrong, check logs for more clarity"}
-

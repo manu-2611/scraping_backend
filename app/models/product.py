@@ -1,9 +1,11 @@
-from pydantic import BaseModel, Field, HttpUrl
 from typing import List
+
+from pydantic import BaseModel, Field
+
 
 class Product(BaseModel):
     """Model representing a product with title, price, and image URL."""
-    
+
     product_name: str       = Field(..., description="The name of the product.")
     product_price: float    = Field(..., gt=0, description="The price of the product. Must be greater than 0.")
     image_url: str      = Field(..., description="URL of the product image.")

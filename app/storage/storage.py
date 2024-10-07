@@ -1,5 +1,5 @@
-from typing import List, Dict
-from typing import Dict, Any
+from typing import Any, Dict
+
 
 class StorageClass:
     def create(self, data: Dict[str, Any]) -> None:

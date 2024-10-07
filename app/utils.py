@@ -1,9 +1,10 @@
-import logging, time, requests
-from typing import Optional
+import logging
+import time
+from typing import List, Optional
+
+import requests
 from bs4.element import Tag
 from settings import RETRY_COUNT
-from typing import List
-from storage.json import JsonStorage
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -51,7 +52,7 @@ class ProductCacheManager:
             names = {product["product_name"]: product for product in current_data}
 
             count = 0
-            
+
             for product in self.products:
                 cached_price = self.redis_client.get(product.product_name)
 
@@ -141,6 +142,3 @@ def check_missing_elements_after_conversion(page, productName, productPrice, ima
             logger.warning("Skipping product on page %d due to data extraction and type conversion issues: Missing elements: %s", page, ", ".join(missing_elements))
         return True
     return False
-
-
-

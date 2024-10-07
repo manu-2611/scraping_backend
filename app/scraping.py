@@ -1,18 +1,21 @@
+import logging
+
+import redis
 from bs4 import BeautifulSoup as soup
-from settings import TARGET_URL, REDIS_HOST, REDIS_PORT, REDIS_DB
-from utils import CleanData, make_get_request_with_retries, check_missing_elements, check_missing_elements_after_conversion, ProductCacheManager
-import redis, logging
 from models.product import Product
 from models.settings import Settings
+from settings import REDIS_DB, REDIS_HOST, REDIS_PORT, TARGET_URL
 from storage.storage import StorageClass
-
+from utils import (CleanData, ProductCacheManager, check_missing_elements,
+                   check_missing_elements_after_conversion,
+                   make_get_request_with_retries)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class Scrapping:
     def __init__(self,settings:Settings,storageType:StorageClass):
-        
+
         self.redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
         self.baseURL = TARGET_URL
         self.settings = settings
@@ -30,7 +33,7 @@ class Scrapping:
 
             url = f"{self.baseURL}page/{page}/"
             responseData = make_get_request_with_retries(url=url)
-            
+
             if not responseData:
                 break
 
@@ -49,9 +52,9 @@ class Scrapping:
                     product_skipped+=1
                     continue
 
-                productPrice = CleanData().price(productPrice)   #CleanData class can be used to clean the respective responseData 
-                productName = CleanData().name(productName)   #CleanData class can be used to clean the respective responseData 
-                imageURL = CleanData().image_url(imageURL)   #CleanData class can be used to clean the respective responseData 
+                productPrice = CleanData().price(productPrice)   #CleanData class can be used to clean the respective responseData
+                productName = CleanData().name(productName)   #CleanData class can be used to clean the respective responseData
+                imageURL = CleanData().image_url(imageURL)   #CleanData class can be used to clean the respective responseData
 
                 if check_missing_elements_after_conversion(page=page, productName=productName, productPrice=productPrice, imageURL=imageURL):
                     product_skipped+=1
